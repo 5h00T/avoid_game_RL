@@ -1,0 +1,3 @@
+[submodule "avoid_game_env"]
+	path = avoid_game_env
+	url = https://github.com/5h00T/avoid_game_env.git
