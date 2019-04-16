@@ -80,11 +80,6 @@ def make_agent():
                 self.l4 = L.Linear(n_hidden_channels, n_actions)
 
         def __call__(self, x, test=False):
-            """
-            Args:
-                x (ndarray or chainer.Variable): An observation
-                test (bool): a flag indicating whether it is in test mode
-            """
             h1 = F.relu(self.l0(x))
             h2 = F.relu(self.l1(h1))
             h3 = F.relu(self.l2(h2))
