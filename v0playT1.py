@@ -5,7 +5,7 @@ import argparse
 import pygame
 from pygame.locals import *
 from play_env import v0PlayEnv
-from player import LoggingPlayer, Logger
+from player import Logger, GIFSaver, Player
 
 import chainer
 import chainer.functions as F
@@ -17,13 +17,13 @@ from PIL import Image
 from scipy import misc
 
 
-class Human(LoggingPlayer):
+class Human(Player):
     """
     人間が操作
     """
 
-    def __init__(self, logger):
-        super().__init__(logger)
+    def __init__(self, extensions):
+        super().__init__(extensions)
 
     def get_action(self, obs):
         """
@@ -31,7 +31,7 @@ class Human(LoggingPlayer):
         :param obs: 状態(RGB値)
         :return: キー入力によって決定されたアクション
         """
-        super().get_action(obs)
+        super().step(obs)
         pressed_key = pygame.key.get_pressed()
         action = 0
 
@@ -120,15 +120,15 @@ def preprocess(observation):
     return misc.imresize(np.asarray(Image.fromarray(observation).convert("L")), (80, 80))
 
 
-class AI(LoggingPlayer):
-    def __init__(self, agent, preprocess, logger):
-        super().__init__(logger)
+class AI(Player):
+    def __init__(self, agent, preprocess, extensions):
+        super().__init__(extensions)
         self.agent = agent
         self.preprocess = preprocess
         self.obs4step = np.zeros((4, 80, 80))
 
     def get_action(self, obs):
-        super().get_action(obs)
+        super().step(obs)
         obs = self.preprocess(obs)
         self.obs4step = np.roll(self.obs4step, 1, axis=0)
         self.obs4step[0] = obs
@@ -182,16 +182,21 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("player", help="Human or AI")
     parser.add_argument("--times", help="回数", default=1, type=int)
+    parser.add_argument("--save", help="プレイの様子をGIFファイル保存", action="store_true")
     args = parser.parse_args()
     times = args.times
+
+    extensions = [Logger()]
+    if args.save:
+        extensions.append(GIFSaver())
 
     if args.player == "Human":
         # 人間のプレイ
         env = v0PlayEnv()
-        player = Human(Logger)
+        player = Human(extensions)
         play_game(env, player, times)
     elif args.player == "AI":
         # AIのプレイ
         env = v0PlayEnv()
-        player = AI(make_agent(), preprocess, Logger)
+        player = AI(make_agent(), preprocess, extensions)
         play_game(env, player, times)
