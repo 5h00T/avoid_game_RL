@@ -4,6 +4,9 @@ import random
 
 import pygame
 from pygame.locals import *
+from play_env import v1PlayEnv
+from player import Logger, GIFSaver, Player
+
 import chainer
 import chainer.functions as F
 import chainer.links as L
@@ -12,10 +15,6 @@ import numpy as np
 import sys
 from PIL import Image
 from scipy import misc
-
-from play_env import v1PlayEnv
-from player import Logger
-from player import Logger, GIFSaver, Player
 
 
 class Human(Player):
