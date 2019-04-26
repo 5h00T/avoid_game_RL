@@ -4,7 +4,7 @@ import random
 
 import pygame
 from pygame.locals import *
-from play_env import v1PlayEnv
+from play_env import v1PlayT1Env
 from player import Player
 from extensions import GIFSaver, Logger
 
@@ -169,11 +169,11 @@ if __name__ == "__main__":
 
     if args.player == "Human":
         # 人間のプレイ
-        env = v1PlayEnv()
+        env = v1PlayT1Env()
         player = Human(extensions)
         play_game(env, player, times)
     elif args.player == "AI":
         # AIのプレイ
-        env = v1PlayEnv()
+        env = v1PlayT1Env()
         player = AI(make_agent(), preprocess, extensions)
         play_game(env, player, times)
