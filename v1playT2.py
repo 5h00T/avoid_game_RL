@@ -5,7 +5,8 @@ import argparse
 import pygame
 from pygame.locals import *
 from play_env import v1PlayT2Env
-from player import Logger, GIFSaver, Player
+from player import Player
+from extensions import GIFSaver, Logger
 
 import chainer
 import chainer.functions as F
