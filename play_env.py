@@ -85,12 +85,12 @@ class PlayT2Env(PlayEnv):
         super().close()
 
 
-class v0PlayEnv(PlayT1Env):
+class v0PlayT1Env(PlayT1Env):
     def step(self, a):
         return super().step(a, False)
 
 
-class v1PlayEnv(PlayT1Env):
+class v1PlayT1Env(PlayT1Env):
     def step(self, a):
         return super().step(a, True)
 
