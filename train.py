@@ -37,7 +37,7 @@ def preprocess(observation):
     return np.asarray(img)
 
 
-env = gym.make("avoid_game_2-v1")
+env = gym.make("avoid_game_t2-v1")
 n_actions = env.action_space.n
 q_func = QFunction(n_actions)
 # q_func.to_gpu()
