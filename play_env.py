@@ -48,7 +48,7 @@ class PlayT1Env(PlayEnv):
         pygame.init()
         self.task_manager = task_manager.TaskManager(task1.Task1)
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption("shooting_env")
+        pygame.display.set_caption("avoid_game_env")
 
         self.screen.fill((255, 255, 255))
         self.task_manager.draw(self.screen)
@@ -73,7 +73,7 @@ class PlayT2Env(PlayEnv):
         pygame.init()
         self.task_manager = task_manager.TaskManager(task2.Task2)
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        pygame.display.set_caption("shooting_env")
+        pygame.display.set_caption("avoid_game_env")
 
         self.screen.fill((255, 255, 255))
         self.task_manager.draw(self.screen)
